@@ -1,8 +1,8 @@
 ---
-docker-main-package:
+docker_main_package:
   - docker-ce
   - docker-ce-cli
   - containerd.io
 
-docker-composer-package: 
+docker_composer_package: 
   - docker-compose-plugin

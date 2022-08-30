@@ -1,5 +1,5 @@
 ---
-dependencies-package:
+dependencies_package:
   - apt-transport-https
   - ca-certificates
   - gnupg

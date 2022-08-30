@@ -7,7 +7,7 @@
 - name: Install dependencies
   become: true
   package:
-    name: "{{ dependencies-package }}"
+    name: "{{ dependencies_package }}"
     state: present
 
 - name: Add Docker GPG apt Key
@@ -25,13 +25,13 @@
   become: true
   apt:
     update_cache: yes
-    package: "{{ docker-main-package }}"
+    package: "{{ docker_main_package }}"
     state: present
 
 - name: Install docker-composer(Optional, look for tags)
   become: true
   apt:
-    name: "{{ docker-composer-package }}"
+    name: "{{ docker_composer_package }}"
     state: present
   tags:
     - composer
@@ -47,7 +47,7 @@
 - name: Add your user to docker group(Optional, look for tags)
   become: true
   user:
-    name: "{{ docker-users | default(ansible_env.USER) }}" 
+    name: "{{ docke_users | default(ansible_env.USER) }}" 
     group: docker
     append: true
   tags:

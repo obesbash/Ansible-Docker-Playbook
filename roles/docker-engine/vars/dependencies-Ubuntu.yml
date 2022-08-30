@@ -1,0 +1,6 @@
+---
+dependencies-package:
+  - apt-transport-https
+  - ca-certificates
+  - gnupg
+  - lsb-release

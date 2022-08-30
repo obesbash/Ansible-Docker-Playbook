@@ -1,0 +1,10 @@
+---
+# tasks file for docker-engine
+- name: Read platform-specific variables
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- name: Read platform-specific package dependencies
+  include_vars: "dependencies-{{ ansible_distribution }}.yml"
+
+- name: Read distro specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"

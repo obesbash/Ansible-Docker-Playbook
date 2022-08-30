@@ -1,0 +1,58 @@
+---
+- name: Update apt packages
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Install dependencies
+  become: true
+  package:
+    name: "{{ dependencies-package }}"
+    state: present
+
+- name: Add Docker GPG apt Key
+  become: true
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu ""{{ansible_distribution_release}}" stable
+    state: present
+
+- name: Install docker
+  become: true
+  apt:
+    update_cache: yes
+    package: "{{ docker-main-package }}"
+    state: present
+
+- name: Install docker-composer(Optional, look for tags)
+  become: true
+  apt:
+    name: "{{ docker-composer-package }}"
+    state: present
+  tags:
+    - composer
+
+- name: Add group, for manage Docker as a non-root user(Optional, look for tags)
+  become: true
+  group:
+    name: docker
+    state: present
+  tags:
+    - nonroot
+
+- name: Add your user to docker group(Optional, look for tags)
+  become: true
+  user:
+    name: "{{ docker-users | default(ansible_env.USER) }}" 
+    group: docker
+    append: true
+  tags:
+    - nonroot
+
+# reset_connection doesn't support conditionals.
+- name: Reset connection so docker group is picked up.
+  meta: reset_connection
